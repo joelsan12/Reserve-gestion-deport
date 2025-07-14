@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seleccionar Fecha y Horario</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Seleccionar Fecha y Horario para la Clase <span th:text="${clase.nombre}"></span></h1>
+
+    <form action="#" th:action="@{/reserva/seleccionarFecha}" method="get">
+        <input type="hidden" name="claseId" th:value="${clase.id}" />
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" th:value="${fechaSeleccionada}" required />
+        <button type="submit">Buscar Horarios</button>
+    </form>
+
+    <div th:if="${#lists.isEmpty(horarios)}">
+        <p>No hay horarios disponibles para esta fecha.</p>
+    </div>
+
+    <ul th:if="${!#lists.isEmpty(horarios)}">
+        <li th:each="horario : ${horarios}">
+            <span th:text="${#temporals.format(horario.fechaHora, 'HH:mm')}"></span>
+            -
+            Cupo máximo: <span th:text="${horario.cupoMaximo}"></span>
+            <form th:action="@{/reserva/crear/{horarioId}(horarioId=${horario.id})}" method="post" style="display:inline;">
+                <button type="submit">Reservar</button>
+            </form>
+        </li>
+    </ul>
+
+</body>
+</html>

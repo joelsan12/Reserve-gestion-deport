@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seleccionar Clase</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Seleccionar Clase para Reservar</h1>
+
+    <form action="#" th:action="@{/reserva/seleccionarFecha}" method="get">
+        <label for="claseId">Clase:</label>
+        <select id="claseId" name="claseId" required>
+            <option value="" disabled selected>Seleccione una clase</option>
+            <option th:each="clase : ${clases}" 
+                    th:value="${clase.id}" 
+                    th:text="${clase.nombre}"></option>
+        </select>
+        <button type="submit">Siguiente</button>
+    </form>
+
+</body>
+</html>

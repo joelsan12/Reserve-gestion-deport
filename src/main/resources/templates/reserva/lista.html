@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mis Reservas</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Mis Reservas Activas</h1>
+
+    <div th:if="${#lists.isEmpty(reservas)}">
+        <p>No tienes reservas activas.</p>
+    </div>
+
+    <ul th:if="${!#lists.isEmpty(reservas)}">
+        <li th:each="reserva : ${reservas}">
+            Clase: <span th:text="${reserva.horario.clase.nombre}"></span> -
+            Fecha y Hora: <span th:text="${#temporals.format(reserva.horario.fechaHora, 'yyyy-MM-dd HH:mm')}"></span> -
+            Estado: <span th:text="${reserva.estado}"></span>
+
+            <form th:action="@{/reserva/cancelar/{id}(id=${reserva.id})}" method="post" style="display:inline;">
+                <button type="submit">Cancelar</button>
+            </form>
+        </li>
+    </ul>
+
+</body>
+</html>

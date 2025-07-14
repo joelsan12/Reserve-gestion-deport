@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Clases Disponibles</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Listado de Clases</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Nivel</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="clase : ${clases}">
+                <td th:text="${clase.nombre}">Nombre</td>
+                <td th:text="${clase.descripcion}">Descripción</td>
+                <td th:text="${clase.nivel}">Nivel</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

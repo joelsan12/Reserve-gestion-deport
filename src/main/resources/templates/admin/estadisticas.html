@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Estadísticas de Reservas</title>
+    <meta charset="UTF-8" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7f8;
+            color: #333;
+            margin: 20px;
+        }
+        h1 {
+            color: #4a90e2;
+            text-align: center;
+        }
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #4a90e2;
+            color: white;
+        }
+        caption {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Estadísticas de Reservas</h1>
+
+    <table>
+        <caption>Reservas por Clase</caption>
+        <thead>
+            <tr>
+                <th>Clase</th>
+                <th>Número de Reservas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="entry : ${reservasPorClase}">
+                <td th:text="${entry.key}">Nombre Clase</td>
+                <td th:text="${entry.value}">0</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <caption>Reservas por Día</caption>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Número de Reservas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="entry : ${reservasPorDia}">
+                <td th:text="${entry.key.format(dateFormatter)}">01/01/2025</td>
+                <td th:text="${entry.value}">0</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

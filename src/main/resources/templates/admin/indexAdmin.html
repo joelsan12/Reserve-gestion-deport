@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel Administrativo</title>
+    <meta charset="UTF-8" />
+    <style>
+        /* Puedes repetir estilos similares */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #4a90e2;
+            color: white;
+            margin: 0;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        ul {
+            list-style: none;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 0;
+        }
+        ul li {
+            background: white;
+            margin: 10px 0;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+        ul li a {
+            display: block;
+            padding: 15px;
+            color: #4a90e2;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 6px;
+        }
+        ul li:hover {
+            background-color: #e6f0fb;
+        }
+        ul li a:hover {
+            color: #2160a8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Panel Administrativo</h1>
+    <ul>
+        <li><a th:href="@{/admin/clases}">Administrar Clases</a></li>
+        <li><a th:href="@{/admin/horarios}">Administrar Horarios</a></li>
+        <li><a th:href="@{/admin/instructores}">Administrar Instructores</a></li>
+        <li><a th:href="@{/admin/usuarios}">Administrar Usuarios</a></li>
+		<li><a th:href="@{/admin/estadisticas}">Ver Estadisticas</a></li>
+    </ul>
+</body>
+</html>

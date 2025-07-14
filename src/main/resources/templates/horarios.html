@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Horarios Disponibles</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Listado de Horarios</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Fecha y Hora</th>
+                <th>Duración (minutos)</th>
+                <th>Cupo Máximo</th>
+                <th>Clase</th>
+                <th>Instructor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="horario : ${horarios}">
+				<span th:text="${#temporals.format(horario.fechaHora, 'dd/MM/yyyy HH:mm')}"></span>
+                <td th:text="${horario.duracion}">Duración</td>
+                <td th:text="${horario.cupoMaximo}">Cupo Máximo</td>
+                <td th:text="${horario.clase.nombre}">Clase</td>
+                <td th:text="${horario.instructor.nombre}">Instructor</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

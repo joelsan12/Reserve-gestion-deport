@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel de Administración</title>
+</head>
+<body>
+    <h1>Panel de Administración</h1>
+    <form th:action="@{/admin/clase}" method="post">
+        <input type="text" name="nombre" placeholder="Nombre de Clase" required/>
+        <input type="text" name="descripcion" placeholder="Descripción" required/>
+        <input type="text" name="nivel" placeholder="Nivel" required/>
+        <button type="submit">Agregar Clase</button>
+    </form>
+
+    <h2>Clases Disponibles</h2>
+    <ul>
+        <li th:each="clase : ${clases}">
+            <span th:text="${clase.nombre}">Nombre de Clase</span>
+        </li>
+    </ul>
+</body>
+</html>

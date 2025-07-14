@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Dashboard</title>
+    <meta charset="UTF-8" />
+    <style>
+        /* tu CSS existente */
+    </style>
+</head>
+<body>
+    <h1>Dashboard</h1>
+
+    <ul>
+        <li><a th:href="@{/clases}">Ver Clases</a></li>
+        <li><a th:href="@{/horarios}">Ver Horarios</a></li>
+        <li><a th:href="@{/instructores}">Ver Instructores</a></li>
+        <li><a th:href="@{/reserva}">Ver Mis Reservas</a></li>
+        <li><a th:href="@{/perfil}">Ver Perfil</a></li>
+        
+        <!-- Enlace exclusivo para admins -->
+        <li sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/admin/indexAdmin}">Panel Administrativo</a>
+        </li>
+    </ul>
+
+</body>
+</html>
