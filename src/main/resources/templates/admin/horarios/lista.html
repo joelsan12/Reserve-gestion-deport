@@ -1,12 +1,78 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Listado de Horarios</title>
+    <meta charset="UTF-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+            background-color: #fafafa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #2980b9;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f4f9ff;
+        }
+        tr:hover {
+            background-color: #d9ecff;
+        }
+        form {
+            display: inline;
+        }
+        button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #c0392b;
+        }
+    </style>
 </head>
 <body>
     <h1>Listado de Horarios</h1>
     <a th:href="@{/admin/horarios/nuevo}">Agregar Nuevo Horario</a>
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th>ID</th>
@@ -28,14 +94,15 @@
                 <td th:text="${horario.cupoMaximo}"></td>
                 <td>
                     <a th:href="@{'/admin/horarios/editar/' + ${horario.id}}">Editar</a>
-                    <form th:action="@{'/admin/horarios/eliminar/' + ${horario.id}}" method="post" style="display:inline;">
-                        <button type="submit" onclick="return confirm('¿Eliminar este horario?')">Eliminar</button>
+                    <form th:action="@{'/admin/horarios/eliminar/' + ${horario.id}}" method="post" onsubmit="return confirm('¿Eliminar este horario?');">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit">Eliminar</button>
                     </form>
                 </td>
             </tr>
         </tbody>
     </table>
     <br/>
-    <a href="/admin">Volver al Panel de Admin</a>
+    <a href="/admin/indexAdmin">Volver al Panel de Admin</a>
 </body>
 </html>

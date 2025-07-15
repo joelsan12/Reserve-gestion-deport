@@ -3,10 +3,59 @@
 <head>
     <title>Clases Disponibles</title>
     <meta charset="UTF-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            color: #333;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 6px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #2980b9;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f4f9ff;
+        }
+        tr:hover {
+            background-color: #d9ecff;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #2980b9;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <h1>Listado de Clases</h1>
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -22,5 +71,7 @@
             </tr>
         </tbody>
     </table>
+    
+    <a th:href="@{/horarios}">👉 Reserva tu clase</a>
 </body>
 </html>

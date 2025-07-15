@@ -1,97 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${horario.id == null} ? 'Nuevo Horario' : 'Editar Horario'">Formulario Horario</title>
+    <title th:text="${instructor.id == null} ? 'Nuevo Instructor' : 'Editar Instructor'">Formulario Instructor</title>
     <meta charset="UTF-8" />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        form {
-            background-color: #fff;
-            padding: 20px 25px;
-            border-radius: 6px;
-            box-shadow: 0 0 8px rgba(0,0,0,0.1);
-            max-width: 500px;
-        }
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #34495e;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1em;
-            box-sizing: border-box;
-        }
-        button {
-            margin-top: 20px;
-            background-color: #2980b9;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        button:hover {
-            background-color: #3498db;
-        }
-        a.cancel-link {
-            display: inline-block;
-            margin-top: 20px;
-            margin-left: 15px;
-            color: #7f8c8d;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        a.cancel-link:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
-    <h1 th:text="${horario.id == null} ? 'Nuevo Horario' : 'Editar Horario'"></h1>
+    <h1 th:text="${instructor.id == null} ? 'Nuevo Instructor' : 'Editar Instructor'"></h1>
 
-    <form th:action="@{/admin/horarios/guardar}" th:object="${horario}" method="post">
+    <form th:action="@{/admin/instructores/guardar}" th:object="${instructor}" method="post">
         <input type="hidden" th:field="*{id}" />
 
-        <label for="clase">Clase:</label>
-        <select id="clase" th:field="*{clase}" required>
-            <option th:each="clase : ${clases}" 
-                    th:value="${clase}" 
-                    th:text="${clase.nombre}">Clase</option>
-        </select>
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required /><br/>
 
-        <label for="instructor">Instructor:</label>
-        <select id="instructor" th:field="*{instructor}" required>
-            <option th:each="instructor : ${instructores}" 
-                    th:value="${instructor}" 
-                    th:text="${instructor.nombre}">Instructor</option>
-        </select>
+        <label>Especialidad:</label>
+        <input type="text" th:field="*{especialidad}" required /><br/>
 
-        <label for="fechaHora">Fecha y Hora:</label>
-        <input type="datetime-local" id="fechaHora" th:field="*{fechaHora}" required />
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required /><br/>
 
-        <label for="duracion">Duración (minutos):</label>
-        <input type="number" id="duracion" th:field="*{duracion}" min="1" required />
-
-        <label for="cupoMaximo">Cupo Máximo:</label>
-        <input type="number" id="cupoMaximo" th:field="*{cupoMaximo}" min="1" required />
+        <label>Teléfono:</label>
+        <input type="text" th:field="*{telefono}" required /><br/>
 
         <button type="submit">Guardar</button>
-        <a href="/admin/horarios" class="cancel-link">Cancelar</a>
+        <a href="/admin/instructores">Cancelar</a>
     </form>
 </body>
 </html>

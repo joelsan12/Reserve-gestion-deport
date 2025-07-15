@@ -42,20 +42,40 @@
             box-sizing: border-box;
         }
 
-        button {
-            width: 100%;
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        button,
+        .back-button {
+            width: 48%;
             padding: 10px;
-            background-color: #007bff;
-            color: white;
+            font-size: 16px;
             border: none;
             border-radius: 8px;
-            margin-top: 20px;
-            font-size: 16px;
             cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
         }
 
         button:hover {
             background-color: #0056b3;
+        }
+
+        .back-button {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
         }
 
         .success {
@@ -83,7 +103,10 @@
             <label for="password">Nueva Contraseña:</label>
             <input type="password" th:field="*{password}" />
 
-            <button type="submit">Actualizar</button>
+            <div class="button-container">
+                <button type="submit">Actualizar</button>
+                <a th:href="@{/dashboard}" class="back-button">Volver</a>
+            </div>
         </form>
 
         <div th:if="${param.exito}" class="success">

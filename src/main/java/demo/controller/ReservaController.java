@@ -34,45 +34,82 @@ public class ReservaController {
     @Autowired
     private ClaseService claseService;
 
-    // 1. Mostrar lista de clases para elegir
-    @GetMapping("/clases")
-    public String listarClases(Model model) {
-        List<Clase> clases = claseService.findAll();
-        model.addAttribute("clases", clases);
-        return "reserva/clases";
+    // Mostrar las reservas activas del usuario
+    @GetMapping
+    public String verMisReservas(Model model, Principal principal) {
+        Usuario usuario = usuarioService.findByEmail(principal.getName());
+        if (usuario == null) {
+            return "redirect:/login?error=Usuario no encontrado";
+        }
+
+        List<Reserva> reservas = reservaService.obtenerReservasUsuario(usuario);
+        model.addAttribute("reservas", reservas);
+        return "reserva/lista";
     }
 
-    // 2. Mostrar horarios disponibles para una clase y fecha
-    @GetMapping("/clases/{claseId}/horarios")
-    public String horariosPorClase(
-            @PathVariable Long claseId,
+    // Paso 1: Mostrar formulario para seleccionar clase
+    @GetMapping("/seleccionarClase")
+    public String seleccionarClase(Model model) {
+        List<Clase> clases = claseService.findAll();
+        model.addAttribute("clases", clases);
+        return "reserva/seleccionarClase";
+    }
+
+    // Paso 2: Mostrar horarios por clase y fecha seleccionada
+    @GetMapping("/seleccionarFecha")
+    public String seleccionarFecha(
+            @RequestParam("claseId") Long claseId,
             @RequestParam(value = "fecha", required = false) String fechaStr,
             Model model) {
 
         LocalDate fecha = (fechaStr == null || fechaStr.isBlank()) ? LocalDate.now() : LocalDate.parse(fechaStr);
+        Clase clase = claseService.obtenerPorId(claseId);
         List<Horario> horarios = horarioService.findByClaseAndFecha(claseId, fecha);
-        model.addAttribute("horarios", horarios);
-        model.addAttribute("claseId", claseId);
+
+        model.addAttribute("clase", clase);
         model.addAttribute("fechaSeleccionada", fecha);
-        return "reserva/horarios";
+        model.addAttribute("horarios", horarios);
+        return "reserva/seleccionarFecha";
     }
 
-    // 3. Crear reserva para un horario seleccionado
+    // Paso 3: Crear reserva para un horario seleccionado (para cualquier rol)
     @PostMapping("/crear/{horarioId}")
-    public String crearReserva(@PathVariable Long horarioId, Principal principal, Model model) {
-        Usuario usuario = usuarioService.findByEmail(principal.getName());
+    public String crearReserva(@PathVariable Long horarioId, Principal principal) {
+        String email = principal.getName();
+        Usuario usuario = usuarioService.findByEmail(email);
+
+        if (usuario == null) {
+            return "redirect:/login?error=Usuario no encontrado";
+        }
+
         Horario horario = horarioService.obtenerPorId(horarioId);
         if (horario == null) {
-            model.addAttribute("error", "Horario no encontrado");
-            return "error";
+            return "redirect:/reserva?error=Horario no encontrado";
         }
 
         try {
             reservaService.crearReserva(usuario, horario);
-            return "redirect:/reserva?exito";
+            return "redirect:/reserva?success=Reserva creada correctamente";
         } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
+            return "redirect:/reserva?error=" + e.getMessage();
+        }
+    }
+
+    // Cancelar reserva (para cualquier rol)
+    @PostMapping("/cancelar/{id}")
+    public String cancelarReserva(@PathVariable Long id, Principal principal) {
+        String email = principal.getName();
+        Usuario usuario = usuarioService.findByEmail(email);
+
+        if (usuario == null) {
+            return "redirect:/login?error=Usuario no encontrado";
+        }
+
+        try {
+            reservaService.cancelarReserva(id, usuario);
+            return "redirect:/reserva?success=Reserva cancelada correctamente";
+        } catch (RuntimeException e) {
+            return "redirect:/reserva?error=" + e.getMessage();
         }
     }
 }

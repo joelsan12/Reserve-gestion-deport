@@ -5,7 +5,42 @@
     <title>Dashboard</title>
     <meta charset="UTF-8" />
     <style>
-        /* tu CSS existente */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f8fa;
+            color: #333;
+            margin: 40px auto;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 15px;
+        }
+        a {
+            display: block;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-size: 1.1em;
+            box-shadow: 0 3px 6px rgba(52, 152, 219, 0.4);
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #2980b9;
+            box-shadow: 0 4px 8px rgba(41, 128, 185, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -17,7 +52,7 @@
         <li><a th:href="@{/instructores}">Ver Instructores</a></li>
         <li><a th:href="@{/reserva}">Ver Mis Reservas</a></li>
         <li><a th:href="@{/perfil}">Ver Perfil</a></li>
-        
+
         <!-- Enlace exclusivo para admins -->
         <li sec:authorize="hasRole('ADMIN')">
             <a th:href="@{/admin/indexAdmin}">Panel Administrativo</a>

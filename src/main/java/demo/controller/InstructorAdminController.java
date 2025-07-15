@@ -16,29 +16,26 @@ public class InstructorAdminController {
     @Autowired
     private InstructorService instructorService;
 
-    // Listar instructores
     @GetMapping
-    public String listarInstructores(Model model) {
+    public String listarInstructores(Model model, @RequestParam(required = false) String error) {
         List<Instructor> instructores = instructorService.findAll();
         model.addAttribute("instructores", instructores);
+        model.addAttribute("error", error);
         return "admin/instructores/lista";
     }
 
-    // Mostrar formulario nuevo instructor
     @GetMapping("/nuevo")
     public String nuevoInstructor(Model model) {
         model.addAttribute("instructor", new Instructor());
         return "admin/instructores/form";
     }
 
-    // Guardar instructor nuevo o editado
     @PostMapping("/guardar")
     public String guardarInstructor(@ModelAttribute Instructor instructor) {
         instructorService.save(instructor);
         return "redirect:/admin/instructores";
     }
 
-    // Mostrar formulario editar instructor
     @GetMapping("/editar/{id}")
     public String editarInstructor(@PathVariable Long id, Model model) {
         Instructor instructor = instructorService.findById(id);
@@ -46,10 +43,14 @@ public class InstructorAdminController {
         return "admin/instructores/form";
     }
 
-    // Eliminar instructor
     @PostMapping("/eliminar/{id}")
     public String eliminarInstructor(@PathVariable Long id) {
-        instructorService.deleteById(id);
+        try {
+            instructorService.deleteById(id);
+        } catch (RuntimeException e) {
+            // Redirigir con parámetro error para mostrar mensaje
+            return "redirect:/admin/instructores?error=" + e.getMessage();
+        }
         return "redirect:/admin/instructores";
     }
 }

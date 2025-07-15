@@ -64,34 +64,35 @@
 <body>
     <h1 th:text="${horario.id == null} ? 'Nuevo Horario' : 'Editar Horario'"></h1>
 
-    <form th:action="@{/admin/horarios/guardar}" th:object="${horario}" method="post">
-        <input type="hidden" th:field="*{id}" />
+	<form th:action="@{/admin/horarios/guardar}" th:object="${horario}" method="post">
+	    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	    <input type="hidden" th:field="*{id}" />
 
-        <label for="clase">Clase:</label>
-        <select id="clase" th:field="*{clase}" required>
-            <option th:each="clase : ${clases}" 
-                    th:value="${clase}" 
-                    th:text="${clase.nombre}">Clase</option>
-        </select>
+	    <label for="clase">Clase:</label>
+	    <select id="clase" th:field="*{clase.id}" required>
+	        <option th:each="clase : ${clases}" 
+	                th:value="${clase.id}" 
+	                th:text="${clase.nombre}">Clase</option>
+	    </select>
 
-        <label for="instructor">Instructor:</label>
-        <select id="instructor" th:field="*{instructor}" required>
-            <option th:each="instructor : ${instructores}" 
-                    th:value="${instructor}" 
-                    th:text="${instructor.nombre}">Instructor</option>
-        </select>
+	    <label for="instructor">Instructor:</label>
+	    <select id="instructor" th:field="*{instructor.id}" required>
+	        <option th:each="instructor : ${instructores}" 
+	                th:value="${instructor.id}" 
+	                th:text="${instructor.nombre}">Instructor</option>
+	    </select>
 
-        <label for="fechaHora">Fecha y Hora:</label>
-        <input type="datetime-local" id="fechaHora" th:field="*{fechaHora}" required />
+	    <label for="fechaHora">Fecha y Hora:</label>
+	    <input type="datetime-local" id="fechaHora" th:field="*{fechaHora}" required />
 
-        <label for="duracion">Duración (minutos):</label>
-        <input type="number" id="duracion" th:field="*{duracion}" min="1" required />
+	    <label for="duracion">Duración (minutos):</label>
+	    <input type="number" id="duracion" th:field="*{duracion}" min="1" required />
 
-        <label for="cupoMaximo">Cupo Máximo:</label>
-        <input type="number" id="cupoMaximo" th:field="*{cupoMaximo}" min="1" required />
+	    <label for="cupoMaximo">Cupo Máximo:</label>
+	    <input type="number" id="cupoMaximo" th:field="*{cupoMaximo}" min="1" required />
 
-        <button type="submit">Guardar</button>
-        <a href="/admin/horarios" class="cancel-link">Cancelar</a>
-    </form>
+	    <button type="submit">Guardar</button>
+	    <a href="/admin/horarios" class="cancel-link">Cancelar</a>
+	</form>
 </body>
 </html>

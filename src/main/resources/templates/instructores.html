@@ -3,10 +3,48 @@
 <head>
     <title>Instructores</title>
     <meta charset="UTF-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 30px auto;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f6fb;
+        }
+        tr:hover {
+            background-color: #d6e9ff;
+        }
+    </style>
 </head>
 <body>
     <h1>Listado de Instructores</h1>
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -24,5 +62,7 @@
             </tr>
         </tbody>
     </table>
+	<a th:href="@{/dashboard}" style="font-weight: bold;">Pagina Principal</a>
+
 </body>
 </html>

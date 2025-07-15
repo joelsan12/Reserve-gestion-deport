@@ -12,4 +12,5 @@ public interface HorarioRepository extends JpaRepository<Horario, Long> {
 
     List<Horario> findByClaseIdAndFechaHoraBetween(Long claseId, LocalDateTime inicio, LocalDateTime fin);
 
+    boolean existsByInstructorId(Long instructorId);
 }

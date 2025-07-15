@@ -13,6 +13,12 @@ public class ClaseServiceImpl implements ClaseService {
 
     @Autowired
     private ClaseRepository claseRepository;
+    
+    @Override
+    public Optional<Clase> findById(Long id) {
+        return claseRepository.findById(id);
+    }
+
 
     @Override
     public List<Clase> findAll() {
@@ -25,12 +31,17 @@ public class ClaseServiceImpl implements ClaseService {
     }
 
     @Override
-    public Optional<Clase> findById(Long id) {
-        return claseRepository.findById(id);
+    public void deleteById(Long id) {
+        claseRepository.deleteById(id);
     }
 
     @Override
-    public void deleteById(Long id) {
-        claseRepository.deleteById(id);
+    public Clase obtenerPorId(Long id) {
+        Optional<Clase> optional = claseRepository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new RuntimeException("Clase no encontrada con id: " + id);
+        }
     }
 }

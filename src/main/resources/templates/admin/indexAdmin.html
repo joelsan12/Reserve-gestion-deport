@@ -49,6 +49,14 @@
         ul li a:hover {
             color: #2160a8;
         }
+		a {		display: block;
+		            padding: 15px;
+		            color: #4a90e2;
+		            font-weight: 600;
+		            text-decoration: none;
+		            font-size: 18px;
+		            border-radius: 6px;}
+		
     </style>
 </head>
 <body>
@@ -60,5 +68,8 @@
         <li><a th:href="@{/admin/usuarios}">Administrar Usuarios</a></li>
 		<li><a th:href="@{/admin/estadisticas}">Ver Estadisticas</a></li>
     </ul>
+	
+	<a href="/dashboard">Volver al Dashboard</a>
+
 </body>
 </html>

@@ -3,9 +3,61 @@
 <head>
     <title>Horarios Disponibles</title>
     <meta charset="UTF-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #007B5E;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        form {
+            margin: 0;
+        }
+
+        button {
+            background-color: #007B5E;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005f47;
+        }
+    </style>
 </head>
 <body>
     <h1>Listado de Horarios</h1>
+
     <table border="1">
         <thead>
             <tr>
@@ -14,17 +66,26 @@
                 <th>Cupo Máximo</th>
                 <th>Clase</th>
                 <th>Instructor</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="horario : ${horarios}">
-				<span th:text="${#temporals.format(horario.fechaHora, 'dd/MM/yyyy HH:mm')}"></span>
+                <td th:text="${#temporals.format(horario.fechaHora, 'dd/MM/yyyy HH:mm')}">Fecha y Hora</td>
                 <td th:text="${horario.duracion}">Duración</td>
                 <td th:text="${horario.cupoMaximo}">Cupo Máximo</td>
                 <td th:text="${horario.clase.nombre}">Clase</td>
                 <td th:text="${horario.instructor.nombre}">Instructor</td>
+                <td>
+                    <form th:action="@{/reserva/crear/{horarioId}(horarioId=${horario.id})}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit">Reservar</button>
+                    </form>
+                </td>
             </tr>
         </tbody>
     </table>
+	<a th:href="@{/dashboard}" style="font-weight: bold;">Pagina Principal</a>
+
 </body>
 </html>

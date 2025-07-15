@@ -25,6 +25,8 @@
 <body>
     <h1>Lista de Instructores</h1>
     <a href="/admin/instructores/nuevo" class="button">Agregar Nuevo Instructor</a>
+	<p th:if="${error}" style="color: red; font-weight: bold;" th:text="${error}"></p>
+
     <table>
         <thead>
             <tr>
@@ -45,14 +47,17 @@
                 <td th:text="${instructor.telefono}"></td>
                 <td>
                     <a th:href="@{'/admin/instructores/editar/' + ${instructor.id}}" class="button">Editar</a>
-                    <form th:action="@{'/admin/instructores/eliminar/' + ${instructor.id}}" method="post" onsubmit="return confirm('¿Eliminar este instructor?');">
-                        <button type="submit" class="delete-btn">Eliminar</button>
-                    </form>
+					<form th:action="@{'/admin/instructores/eliminar/' + ${instructor.id}}" method="post" 
+					      onsubmit="return confirm('¿Eliminar este instructor?');">
+					    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					    <button type="submit" class="delete-btn">Eliminar</button>
+					</form>
+					
                 </td>
             </tr>
         </tbody>
     </table>
     <br/>
-    <a href="/admin" class="button" style="background-color: #555;">Volver al Panel de Admin</a>
+    <a href="/admin/indexAdmin" class="button" style="background-color: #555;">Volver al Panel de Admin</a>
 </body>
 </html>

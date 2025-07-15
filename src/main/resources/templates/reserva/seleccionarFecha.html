@@ -10,7 +10,7 @@
     <form action="#" th:action="@{/reserva/seleccionarFecha}" method="get">
         <input type="hidden" name="claseId" th:value="${clase.id}" />
         <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha" th:value="${fechaSeleccionada}" required />
+		<input type="date" id="fecha" name="fecha" required />
         <button type="submit">Buscar Horarios</button>
     </form>
 
